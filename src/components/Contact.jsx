@@ -40,10 +40,10 @@ function SuccessMessage() {
         <IconCheckCircle className="w-8 h-8" />
       </div>
       <h3 className="font-display text-xl text-slate-900 mb-2" style={{ fontWeight: 700 }}>
-        Message Received!
+        Message Sent Successfully!
       </h3>
       <p className="text-slate-500 text-sm max-w-xs">
-        Thank you for reaching out. Our team will contact you within one business day.
+        Thank you for contacting NimbusCloud. We've received your message and will get back to you within one business day via email.
       </p>
     </div>
   )
@@ -54,13 +54,42 @@ function ContactForm({ onSubmit }) {
   const [formData, setFormData] = useState({
     name: '', email: '', company: '', service: '', message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const set = (field) => (e) => setFormData({ ...formData, [field]: e.target.value })
 
   const inputClass = 'form-input w-full rounded-xl px-4 py-3 text-sm text-slate-700'
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch('https://formspree.io/f/mwvawvbe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      
+      if (response.ok) {
+        onSubmit()
+      } else {
+        console.error('Form submission failed')
+        alert('There was an error submitting the form. Please try again.')
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      alert('There was an error submitting the form. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
-    <form onSubmit={(e) => { e.preventDefault(); onSubmit() }} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-5">
 
       {/* Name + Email row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -139,10 +168,23 @@ function ContactForm({ onSubmit }) {
       {/* Submit */}
       <button
         type="submit"
-        className="btn-primary w-full text-white py-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2.5"
+        disabled={isSubmitting}
+        className="btn-primary w-full text-white py-4 rounded-xl font-semibold text-sm flex items-center justify-center gap-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Send Message
-        <IconSend className="w-4 h-4" />
+        {isSubmitting ? (
+          <>
+            <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+            </svg>
+            Sending...
+          </>
+        ) : (
+          <>
+            Send Message
+            <IconSend className="w-4 h-4" />
+          </>
+        )}
       </button>
 
       <p className="text-xs text-slate-400 text-center">
