@@ -87,7 +87,7 @@ export default function TermsOfService({ isOpen, onClose }) {
                   If you have questions about these Terms, contact us at:
                 </p>
                 <div className="bg-slate-50 p-4 rounded-lg">
-                  <p className="text-slate-600"><strong>Email:</strong> nimbuscloudnbc@gmail.com</p>
+                  <p className="text-slate-600"><strong>Email:</strong> nimbuscloud.asia@gmail.com</p>
                   <p className="text-slate-600"><strong>Address:</strong> Yangon, Myanmar</p>
                 </div>
               </div>
