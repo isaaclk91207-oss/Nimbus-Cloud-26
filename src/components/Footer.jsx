@@ -153,7 +153,7 @@ export default function Footer({ onPrivacyClick, onTermsClick }) {
           style={{ borderColor: 'rgba(255,255,255,0.06)' }}
         >
           <p className="text-slate-500 text-xs">
-            © {year} NimbusCloud. All rights reserved. | Managed Cloud Services, Myanmar. | Powered by 1CloudNG
+            © {year} NimbusCloud. All rights reserved. | Managed Cloud Services, Myanmar.
           </p>
           <div className="flex gap-6">
             <button
