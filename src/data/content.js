@@ -128,7 +128,6 @@ export const TRUST_ITEMS = [
 // ─── Contact Info ─────────────────────────────────────────────────────────────
 export const CONTACT_INFO = [
   { icon: '📧', label: 'Email',         value: 'nimbuscloud.asia@gmail.com'  },
-  { icon: '📞', label: 'Phone / Viber', value: '09-794600151'               },
   { icon: '🏙️', label: 'Location',      value: 'Yangon, Myanmar'           },
   { icon: '⏰', label: 'Office Hours',  value: 'Mon–Fri, 9 AM – 6 PM (MMT)'},
 ]
